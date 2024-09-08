@@ -12,5 +12,6 @@ public class Car
     public required DateTime CreatedAt { get; init; }
     [Range(1, 12)]
     public required int SeatsCount { get; init; }
+    [RegularExpression(@"^https?://.*\.ru$", ErrorMessage = "Сайт должен быть в домене '.ru'.")]
     public string? Url { get; init; }
 }

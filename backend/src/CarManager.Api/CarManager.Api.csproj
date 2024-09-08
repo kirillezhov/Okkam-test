@@ -16,7 +16,14 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\CarManager.Application\CarManager.Application.csproj" />
       <ProjectReference Include="..\CarManager.DataAccess\CarManager.DataAccess.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="MediatR">
+        <HintPath>..\..\..\..\..\.nuget\packages\mediatr\12.4.0\lib\net6.0\MediatR.dll</HintPath>
+      </Reference>
     </ItemGroup>
 
 </Project>
