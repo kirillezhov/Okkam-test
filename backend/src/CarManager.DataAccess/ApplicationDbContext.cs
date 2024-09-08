@@ -36,6 +36,14 @@ public class ApplicationDbContext : DbContext
             .Property(c => c.Url)
             .HasMaxLength(1000);
 
+        modelBuilder.Entity<Brand>()
+            .HasIndex(b => b.Name)
+           .IsUnique();
+
+        modelBuilder.Entity<BodyType>()
+           .HasIndex(bt => bt.Name)
+           .IsUnique();
+
         base.OnModelCreating(modelBuilder);
     }
 }
