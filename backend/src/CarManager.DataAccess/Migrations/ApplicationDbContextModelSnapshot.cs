@@ -37,7 +37,7 @@ namespace CarManager.DataAccess.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("BodyTypes");
+                    b.ToTable("BodyTypes", (string)null);
                 });
 
             modelBuilder.Entity("CarManager.Domain.Models.Brand", b =>
@@ -55,7 +55,7 @@ namespace CarManager.DataAccess.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Brands");
+                    b.ToTable("Brands", (string)null);
                 });
 
             modelBuilder.Entity("CarManager.Domain.Models.Car", b =>
@@ -97,7 +97,7 @@ namespace CarManager.DataAccess.Migrations
 
                     b.HasIndex("BrandId");
 
-                    b.ToTable("Cars");
+                    b.ToTable("Cars", (string)null);
                 });
 
             modelBuilder.Entity("CarManager.Domain.Models.Car", b =>

@@ -1,6 +1,6 @@
-using CarManager.Application.DTOs;
+using CarManager.Application.DTOs.Output;
 using MediatR;
 
 namespace CarManager.Application.Queries;
 
-public record GetAllBodyTypesQuery : IRequest<IEnumerable<BodyTypeDto>>;
+public record GetAllBodyTypesQuery : IRequest<IEnumerable<BodyTypeOutput>>;

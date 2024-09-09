@@ -1,7 +1,9 @@
 using CarManager.Api.Extensions;
+using CarManager.Application.Configuration;
+using CarManager.Application.Mapster.Mappers;
 using CarManager.Application.Queries;
+using CarManager.Application.Services;
 using CarManager.DataAccess;
-using CarManager.DataAccess.Repositories;
 using CarManager.DataAccess.Repositories.Read;
 using CarManager.DataAccess.Repositories.Write;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +18,10 @@ builder.Services.AddScoped<ICarReadRepository, CarReadRepository>();
 builder.Services.AddScoped<IBrandReadRepository, BrandReadRepository>();
 builder.Services.AddScoped<IBodyTypeReadRepository, BodyTypeReadRepository>();
 builder.Services.AddScoped<ICarWriteRepository, CarWriteRepository>();
+
+builder.Services.RegisterMapster<SingleValueObjectsMapper>();
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(GetAllCarsQuery).Assembly));
 

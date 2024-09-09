@@ -1,4 +1,4 @@
-using CarManager.Domain.Models;
+using CarManager.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace CarManager.DataAccess.Repositories.Read;
@@ -20,5 +20,22 @@ public class BodyTypeReadRepository : IBodyTypeReadRepository
     public async Task<IEnumerable<BodyType>> GetAllAsync(CancellationToken cancellationToken)
     {
         return await Query.ToListAsync(cancellationToken);
+    }
+
+    public async Task<BodyType> GetByIdAsync(Guid id, CancellationToken cancellationToken)
+    {
+        var entity = await FindByIdAsync(id, cancellationToken);
+
+        if (entity is null)
+        {
+            throw new KeyNotFoundException("BodyType not found. Requested ID: {id}");
+        }
+        
+        return entity;
+    }
+
+    public async Task<BodyType?> FindByIdAsync(Guid id, CancellationToken cancellationToken)
+    {
+        return await _dbSet.FindAsync(id, cancellationToken);
     }
 }

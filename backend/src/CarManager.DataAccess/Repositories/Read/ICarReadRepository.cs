@@ -1,4 +1,4 @@
-using CarManager.Domain.Models;
+using CarManager.Domain.Entities;
 
 namespace CarManager.DataAccess.Repositories.Read;
 

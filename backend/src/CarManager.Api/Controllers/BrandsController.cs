@@ -1,4 +1,4 @@
-using CarManager.Application.DTOs;
+using CarManager.Application.DTOs.Output;
 using CarManager.Application.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -18,7 +18,7 @@ public class BrandsController : ControllerBase
     
     // GET: api/brands
     [HttpGet]
-    public async Task<IEnumerable<BrandDto>> GetBrands()
+    public async Task<IEnumerable<BrandOutput>> GetBrands()
     {
         return await _mediator.Send(new GetAllBrandsQuery());
     }

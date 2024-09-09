@@ -1,6 +1,6 @@
-namespace CarManager.Application.DTOs;
+namespace CarManager.Application.DTOs.Output;
 
-public class CarDto
+public class CarOutput
 {
     public Guid Id { get; init; }
     public required string ModelName { get; init; }
@@ -8,6 +8,6 @@ public class CarDto
     public required DateTime CreatedAt { get; init; }
     public required int SeatsCount { get; init; }
     public string? Url { get; init; }
-    public required BodyTypeDto BodyType { get; init; }
-    public required BrandDto Brand { get; init; }
+    public required BodyTypeOutput BodyType { get; init; }
+    public required BrandOutput Brand { get; init; }
 }

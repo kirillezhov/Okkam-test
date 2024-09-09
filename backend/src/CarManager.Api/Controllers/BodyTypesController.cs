@@ -1,4 +1,4 @@
-using CarManager.Application.DTOs;
+using CarManager.Application.DTOs.Output;
 using CarManager.Application.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -18,7 +18,7 @@ public class BodyTypesController : ControllerBase
 
     // GET: api/bodyTypes
     [HttpGet]
-    public async Task<IEnumerable<BodyTypeDto>> GetBodyTypes()
+    public async Task<IEnumerable<BodyTypeOutput>> GetBodyTypes()
     {
         return await _mediator.Send(new GetAllBodyTypesQuery());
     }

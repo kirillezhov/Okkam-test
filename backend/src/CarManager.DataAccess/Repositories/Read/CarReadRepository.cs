@@ -1,5 +1,5 @@
-using CarManager.Domain.Models;
 using Microsoft.EntityFrameworkCore;
+using Car = CarManager.Domain.Entities.Car;
 
 namespace CarManager.DataAccess.Repositories.Read;
 
