@@ -1,6 +1,7 @@
 using CarManager.Application.DTOs;
 using CarManager.Application.Queries;
 using CarManager.DataAccess.Repositories;
+using CarManager.DataAccess.Repositories.Read;
 using Mapster;
 using MediatR;
 

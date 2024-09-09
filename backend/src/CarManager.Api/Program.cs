@@ -2,6 +2,8 @@ using CarManager.Api.Extensions;
 using CarManager.Application.Queries;
 using CarManager.DataAccess;
 using CarManager.DataAccess.Repositories;
+using CarManager.DataAccess.Repositories.Read;
+using CarManager.DataAccess.Repositories.Write;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +13,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<ICarReadRepository, CarReadRepository>();
+builder.Services.AddScoped<IBrandReadRepository, BrandReadRepository>();
+builder.Services.AddScoped<IBodyTypeReadRepository, BodyTypeReadRepository>();
 builder.Services.AddScoped<ICarWriteRepository, CarWriteRepository>();
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(GetAllCarsQuery).Assembly));

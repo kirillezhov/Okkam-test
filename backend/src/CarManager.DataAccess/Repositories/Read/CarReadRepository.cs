@@ -1,14 +1,13 @@
-using System.Linq.Expressions;
 using CarManager.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace CarManager.DataAccess.Repositories;
+namespace CarManager.DataAccess.Repositories.Read;
 
 public class CarReadRepository : ICarReadRepository
 {
-    internal DbSet<Car> _dbSet;
-    
-    protected readonly ApplicationDbContext _context;
+    private DbSet<Car> _dbSet;
+
+    private readonly ApplicationDbContext _context;
     
     protected virtual IQueryable<Car> Query => _dbSet.AsNoTracking();
 

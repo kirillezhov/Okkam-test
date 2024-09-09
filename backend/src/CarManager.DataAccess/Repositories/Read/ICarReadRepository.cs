@@ -1,7 +1,6 @@
-using System.Linq.Expressions;
 using CarManager.Domain.Models;
 
-namespace CarManager.DataAccess.Repositories;
+namespace CarManager.DataAccess.Repositories.Read;
 
 public interface ICarReadRepository
 {
