@@ -22,12 +22,8 @@ public class ApplicationDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Car>()
-            .Property(c => c.Id)
-            .HasConversion(v => v.Value, v => new EntityId(v));
-
-        modelBuilder.Entity<Car>()
             .Property(c => c.Image)
-            .HasConversion(v => v.Value, v => new CarImage(v))
+            .HasConversion(v => v.Data, v => new CarImage(v))
             .HasColumnType("bytea");
 
         modelBuilder.Entity<Car>()
@@ -52,17 +48,9 @@ public class ApplicationDbContext : DbContext
             .HasIndex(b => b.Name)
             .IsUnique();
 
-        modelBuilder.Entity<Brand>()
-            .Property(b => b.Id)
-            .HasConversion(v => v.Value, v => new EntityId(v));
-
         modelBuilder.Entity<BodyType>()
            .HasIndex(bt => bt.Name)
            .IsUnique();
-
-        modelBuilder.Entity<BodyType>()
-           .Property(bt => bt.Id)
-           .HasConversion(v => v.Value, v => new EntityId(v));
 
         base.OnModelCreating(modelBuilder);
     }

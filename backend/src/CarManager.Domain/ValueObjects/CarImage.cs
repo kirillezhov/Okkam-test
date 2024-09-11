@@ -7,15 +7,16 @@ namespace CarManager.Domain.ValueObjects;
 
 public record CarImage
 {
-    public byte[] Value { get; }
+    public byte[] Data { get; }
+    public string Extension { get; }
     
-    public CarImage(byte[] value)
+    public CarImage(byte[] data)
     {
-        Validate(value);
-        Value = value;
+        Extension = DetectExtension(data);
+        Data = data;
     }
 
-    protected static void Validate(byte[] input)
+    protected static string DetectExtension(byte[] input)
     {
         IImageFormat? format = Image.DetectFormat(input);
 
@@ -28,5 +29,7 @@ public record CarImage
         {
             throw new ArgumentException("Image format must be JPEG or PNG.");
         }
+
+        return format.Name;
     }
 }

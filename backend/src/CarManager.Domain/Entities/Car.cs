@@ -4,7 +4,7 @@ namespace CarManager.Domain.Entities;
 
 public partial class Car
 {
-    public EntityId Id { get; set; }
+    public Guid Id { get; set; }
     public required Brand Brand { get; init; }
     public ModelName ModelName { get; set; }
     public CarImage Image { get; set; }

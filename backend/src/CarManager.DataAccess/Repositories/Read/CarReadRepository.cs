@@ -1,5 +1,5 @@
+using CarManager.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using Car = CarManager.Domain.Entities.Car;
 
 namespace CarManager.DataAccess.Repositories.Read;
 
@@ -23,5 +23,25 @@ public class CarReadRepository : ICarReadRepository
             .Include(c => c.Brand)
             .Include(c => c.BodyType)
             .ToListAsync(cancellationToken);
+    }
+
+    public async Task<Car> GetByIdAsync(Guid id, CancellationToken cancellationToken)
+    {
+        var entity = await FindByIdAsync(id, cancellationToken);
+
+        if (entity is null)
+        {
+            throw new KeyNotFoundException($"Car not found. Requested ID: {id}");
+        }
+        
+        return entity;
+    }
+
+    public async Task<Car?> FindByIdAsync(Guid id, CancellationToken cancellationToken)
+    {
+        return await Query
+            .Include(c => c.Brand)
+            .Include(c => c.BodyType)
+            .FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
     }
 }

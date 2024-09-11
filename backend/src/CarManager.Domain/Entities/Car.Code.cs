@@ -7,7 +7,7 @@ public partial class Car
 {
     public CarCreated Create(string name, int seats, byte[] image, string? url)
     {
-        var newId = EntityId.CreateNew();
+        var newId = Guid.NewGuid();
         var modelName = new ModelName(name);
         var seatsCount = new SeatsCount(seats);
         var carImage = new CarImage(image);
