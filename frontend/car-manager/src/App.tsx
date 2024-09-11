@@ -1,35 +1,71 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Button, Flex, Table, TableColumnsType } from 'antd';
+import { useEffect, useState } from "react";
+import { Car } from "./models/Car.ts";
+import axios from "axios";
 
-function App() {
-  const [count, setCount] = useState(0)
+interface DataType {
+    key: React.Key,
+    name: string,
+    brand: string,
+    bodyType: string,
+    seatsCount: number,
+    url?: string,
+    createdAt: Date,
+};
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+const columns: TableColumnsType<DataType> = [
+    { title: 'Модель', dataIndex: 'name' },
+    { title: 'Бренд', dataIndex: 'brand' },
+    { title: 'Тип кузова', dataIndex: 'bodyType' },
+    { title: 'Количество сидений', dataIndex: 'seatsCount' },
+    { title: 'Изображение', dataIndex: 'key', render: (id: string) => <a href={`http://localhost:5206/api/cars/image/${id}`} download>Download Image</a> },
+    { title: 'Ссылка', dataIndex: 'url', render: (url: string) => <a href={url} target="_blank">{url}</a> },
+    { title: 'Создан', dataIndex: 'createdAt' }
+];
 
-export default App
+const App = () =>  {
+    const [data, setData] = useState<Car[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get<Car[]>('http://localhost:5206/api/cars', {
+                    headers: {"Access-Control-Allow-Origin": "*"}
+                });
+                setData(response.data);
+            } catch (err) {
+                console.log(err);
+                setError('Ошибка при загрузке данных');
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    const dataSource = data.map<DataType>((car) => ({
+        key: car.id,
+        bodyType: car.bodyType.name,
+        brand: car.brand.name,
+        name: car.modelName,
+        seatsCount: car.seatsCount,
+        url: car.url,
+        createdAt: car.createdAt
+    }));
+
+    return (
+        <Flex gap="middle" vertical>
+            <Flex align="center" gap="middle">
+                <Button type="primary">Новый авто</Button>
+            </Flex>
+            <Table columns={columns} dataSource={dataSource} rowKey="id" />
+            {loading && <div>Загрузка...</div>}
+            {error && <div>Ошибка: {error}</div>}
+        </Flex>
+    );
+};
+
+export default App;
