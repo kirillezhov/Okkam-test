@@ -1,4 +1,5 @@
 using CarManager.Api.Extensions;
+using CarManager.Api.Middlewares;
 using CarManager.Application.Configuration;
 using CarManager.Application.Mapster.Mappers;
 using CarManager.Application.Queries;
@@ -55,6 +56,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseCors();
 

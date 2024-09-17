@@ -13,6 +13,11 @@ public partial class Car
 
     public void Apply(DomainEvent domainEvent)
     {
+        if (domainEvent is CarCreated)
+        {
+            this.Id = domainEvent.DomainId;
+        }
+        
         if (this.Id != domainEvent.DomainId)
         {
             string eventTypeName = domainEvent.GetType().Name;
